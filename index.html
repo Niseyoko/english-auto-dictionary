@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Link words to Oxford Learners Dictionary</title>
+  </head>
+  <body>
+    <div>
+      <textarea id="text" cols="80" rows="10"></textarea>
+      <button onclick="linkWords()">Link words to Oxford Learners Dictionary</button>
+    </div>
+    <div id="result"></div>
+    <iframe id="dictionary" name="dictionary"></iframe>
+    <script>
+      function linkWords() {
+        // Get the text from the textarea
+        var text = document.getElementById("text").value;
+        // Split the text into lines
+        var lines = text.split(/\r?\n/);
+        // Create a link for each word in each line
+        var result = "";
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i];
+          var words = line.split(/(\s+)/);
+          for (var j = 0; j < words.length; j++) {
+            var word = words[j];
+            // Create a link using the Oxford Learners Dictionary website
+            if (word.match(/^\s+$/)) {
+              result += word;
+            } else {
+              var url = "https://www.oxfordlearnersdictionaries.com/definition/english/" + word.toLowerCase();
+              var link = '<a href="' + url + '" target="dictionary"> ' + word + "</a>";
+              result += link;
+            }
+          }
+          result += "<br>"; // Add a line break after each line
+        }
+        // Display the links in the result div
+        document.getElementById("result").innerHTML = result;
+      }
+    </script>
+  </body>
+</html>
